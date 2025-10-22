@@ -15,6 +15,10 @@ export default function QueryProcessor(query: string): string {
     return "67";
   }
 
+  if (query.toLowerCase().includes("andrew") && query.toLowerCase().includes("id")) {
+    return "hangyiw";
+  }
+
   // Math operations - template-based dynamic calculation
   const numMatch = query.match(/(\d+)/g);
   if (numMatch && numMatch.length >= 2) {
