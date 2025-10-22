@@ -23,6 +23,11 @@ export default function QueryProcessor(query: string): string {
     return "spherical";
   }
 
+  if (query.toLowerCase().includes("date")) {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+  }
+
   // Math operations - template-based dynamic calculation
   const numMatch = query.match(/(\d+)/g);
   if (numMatch && numMatch.length >= 2) {
