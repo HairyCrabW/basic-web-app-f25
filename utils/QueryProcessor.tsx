@@ -19,6 +19,10 @@ export default function QueryProcessor(query: string): string {
     return "hangyiw";
   }
 
+  if (query.toLowerCase().includes("earth") && query.toLowerCase().includes("shape")) {
+    return "spherical";
+  }
+
   // Math operations - template-based dynamic calculation
   const numMatch = query.match(/(\d+)/g);
   if (numMatch && numMatch.length >= 2) {
