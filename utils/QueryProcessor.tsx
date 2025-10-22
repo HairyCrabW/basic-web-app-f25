@@ -38,7 +38,7 @@ export default function QueryProcessor(query: string): string {
   }
 
   // USA capital question
-  if ((query.toLowerCase().includes("usa") || query.toLowerCase().includes("america") || query.toLowerCase().includes("united states")) &&
+  if ((query.toLowerCase().includes("us") || query.toLowerCase().includes("usa") || query.toLowerCase().includes("america") || query.toLowerCase().includes("united states")) &&
       query.toLowerCase().includes("capital")) {
     return "Washington, D.C.";
   }
