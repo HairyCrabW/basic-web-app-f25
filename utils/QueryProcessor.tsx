@@ -23,14 +23,15 @@ export default function QueryProcessor(query: string): string {
     return "spherical";
   }
 
+  // Check time before math operations to avoid conflict with "times"
+  if (query.toLowerCase().includes("time") && !query.toLowerCase().includes("times")) {
+    const now = new Date();
+    return now.toLocaleTimeString();
+  }
+
   if (query.toLowerCase().includes("date")) {
     const today = new Date();
     return today.toISOString().split('T')[0];
-  }
-
-  if (query.toLowerCase().includes("time")) {
-    const now = new Date();
-    return now.toLocaleTimeString();
   }
 
   // Math operations - use eval for complex expressions
