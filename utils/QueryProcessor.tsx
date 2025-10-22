@@ -16,24 +16,20 @@ export default function QueryProcessor(query: string): string {
   }
 
   // Math operations - template-based dynamic calculation
-  const mathMatch = query.match(/what is (\d+)\s*(plus|\+|minus|-|multiplied by|\*|times|divided by|\/)\s*(\d+)/i);
-  if (mathMatch) {
-    const num1 = parseInt(mathMatch[1]);
-    const operator = mathMatch[2].toLowerCase();
-    const num2 = parseInt(mathMatch[3]);
-    let result = 0;
+  const numMatch = query.match(/(\d+)/g);
+  if (numMatch && numMatch.length >= 2) {
+    const num1 = parseInt(numMatch[0]);
+    const num2 = parseInt(numMatch[1]);
 
-    if (operator === "plus" || operator === "+") {
-      result = num1 + num2;
-    } else if (operator === "minus" || operator === "-") {
-      result = num1 - num2;
-    } else if (operator === "multiplied by" || operator === "*" || operator === "times") {
-      result = num1 * num2;
-    } else if (operator === "divided by" || operator === "/") {
-      result = num1 / num2;
+    if (query.includes("+") || query.toLowerCase().includes("plus")) {
+      return (num1 + num2).toString();
+    } else if (query.includes("-") || query.toLowerCase().includes("minus")) {
+      return (num1 - num2).toString();
+    } else if (query.includes("*") || query.toLowerCase().includes("multiplied") || query.toLowerCase().includes("times")) {
+      return (num1 * num2).toString();
+    } else if (query.includes("/") || query.toLowerCase().includes("divided")) {
+      return (num1 / num2).toString();
     }
-
-    return result.toString();
   }
 
   // China capital question
