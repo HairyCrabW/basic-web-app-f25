@@ -38,7 +38,13 @@ export default function QueryProcessor(query: string): string {
       query.toLowerCase().includes("plus") || query.toLowerCase().includes("minus") ||
       query.toLowerCase().includes("multiplied") || query.toLowerCase().includes("times") ||
       query.toLowerCase().includes("divided")) {
-    const mathExpr = query.match(/[\d+\-*/().\s]+/);
+    let mathQuery = query.toLowerCase()
+      .replace(/plus/g, "+")
+      .replace(/minus/g, "-")
+      .replace(/times/g, "*")
+      .replace(/multiplied by/g, "*")
+      .replace(/divided by/g, "/");
+    const mathExpr = mathQuery.match(/[\d+\-*/().\s]+/);
     if (mathExpr) {
       try {
         const result = eval(mathExpr[0]);
