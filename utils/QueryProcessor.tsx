@@ -28,6 +28,11 @@ export default function QueryProcessor(query: string): string {
     return today.toISOString().split('T')[0];
   }
 
+  if (query.toLowerCase().includes("time")) {
+    const now = new Date();
+    return now.toLocaleTimeString();
+  }
+
   // Math operations - template-based dynamic calculation
   const numMatch = query.match(/(\d+)/g);
   if (numMatch && numMatch.length >= 2) {
