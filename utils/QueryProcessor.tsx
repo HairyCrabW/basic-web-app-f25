@@ -38,5 +38,11 @@ export default function QueryProcessor(query: string): string {
     return "Beijing";
   }
 
+  // USA capital question
+  if ((query.toLowerCase().includes("usa") || query.toLowerCase().includes("america") || query.toLowerCase().includes("united states") || query.toLowerCase().includes("美国")) &&
+      (query.toLowerCase().includes("capital") || query.toLowerCase().includes("首都"))) {
+    return "Washington, D.C.";
+  }
+
   return "";
 }
