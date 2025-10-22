@@ -33,20 +33,19 @@ export default function QueryProcessor(query: string): string {
     return now.toLocaleTimeString();
   }
 
-  // Math operations - template-based dynamic calculation
-  const numMatch = query.match(/(\d+)/g);
-  if (numMatch && numMatch.length >= 2) {
-    const num1 = parseInt(numMatch[0]);
-    const num2 = parseInt(numMatch[1]);
-
-    if (query.includes("+") || query.toLowerCase().includes("plus")) {
-      return (num1 + num2).toString();
-    } else if (query.includes("-") || query.toLowerCase().includes("minus")) {
-      return (num1 - num2).toString();
-    } else if (query.includes("*") || query.toLowerCase().includes("multiplied") || query.toLowerCase().includes("times")) {
-      return (num1 * num2).toString();
-    } else if (query.includes("/") || query.toLowerCase().includes("divided")) {
-      return (num1 / num2).toString();
+  // Math operations - use eval for complex expressions
+  if (query.includes("+") || query.includes("-") || query.includes("*") || query.includes("/") ||
+      query.toLowerCase().includes("plus") || query.toLowerCase().includes("minus") ||
+      query.toLowerCase().includes("multiplied") || query.toLowerCase().includes("times") ||
+      query.toLowerCase().includes("divided")) {
+    const mathExpr = query.match(/[\d+\-*/().]+/);
+    if (mathExpr) {
+      try {
+        const result = eval(mathExpr[0]);
+        return result.toString();
+      } catch (e) {
+        // If eval fails, return empty
+      }
     }
   }
 
