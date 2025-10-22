@@ -33,14 +33,13 @@ export default function QueryProcessor(query: string): string {
   }
 
   // China capital question
-  if ((query.toLowerCase().includes("china") || query.toLowerCase().includes("中国")) &&
-      (query.toLowerCase().includes("capital") || query.toLowerCase().includes("首都"))) {
+  if (query.toLowerCase().includes("china") && query.toLowerCase().includes("capital")) {
     return "Beijing";
   }
 
   // USA capital question
-  if ((query.toLowerCase().includes("usa") || query.toLowerCase().includes("america") || query.toLowerCase().includes("united states") || query.toLowerCase().includes("美国")) &&
-      (query.toLowerCase().includes("capital") || query.toLowerCase().includes("首都"))) {
+  if ((query.toLowerCase().includes("usa") || query.toLowerCase().includes("america") || query.toLowerCase().includes("united states")) &&
+      query.toLowerCase().includes("capital")) {
     return "Washington, D.C.";
   }
 
