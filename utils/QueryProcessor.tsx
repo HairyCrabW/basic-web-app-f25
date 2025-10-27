@@ -34,6 +34,15 @@ export default function QueryProcessor(query: string): string {
     return today.toISOString().split('T')[0];
   }
 
+  // Find largest number
+  if (query.toLowerCase().includes("largest")) {
+    const numbers = query.match(/\d+/g);
+    if (numbers && numbers.length > 0) {
+      const max = Math.max(...numbers.map(n => parseInt(n)));
+      return max.toString();
+    }
+  }
+
   // Math operations - use eval for complex expressions
   if (query.includes("+") || query.includes("-") || query.includes("*") || query.includes("/") ||
       query.toLowerCase().includes("plus") || query.toLowerCase().includes("minus") ||
@@ -45,7 +54,7 @@ export default function QueryProcessor(query: string): string {
       .replace(/times/g, "*")
       .replace(/multiplied by/g, "*")
       .replace(/divided by/g, "/");
-    const mathExpr = mathQuery.match(/[\d+\-*/().\s]+/);
+    const mathExpr = mathQuery.match(/\d+(\.\d+)?\s*[\+\-\*\/\(\)]\s*\d+(\.\d+)?/);
     if (mathExpr) {
       try {
         const result = eval(mathExpr[0]);
