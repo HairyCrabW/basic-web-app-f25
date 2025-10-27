@@ -47,12 +47,16 @@ export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("square") && query.toLowerCase().includes("cube")) {
     const numbers = query.match(/\d+/g);
     if (numbers) {
+      const results = [];
       for (const numStr of numbers) {
         const num = parseInt(numStr);
         const sixthRoot = Math.round(Math.pow(num, 1/6));
         if (Math.pow(sixthRoot, 6) === num) {
-          return num.toString();
+          results.push(num);
         }
+      }
+      if (results.length > 0) {
+        return results.join(', ');
       }
     }
   }
