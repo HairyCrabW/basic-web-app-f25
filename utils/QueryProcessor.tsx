@@ -54,10 +54,10 @@ export default function QueryProcessor(query: string): string {
       .replace(/times/g, "*")
       .replace(/multiplied by/g, "*")
       .replace(/divided by/g, "/");
-    const mathExpr = mathQuery.match(/\d+(\.\d+)?\s*[\+\-\*\/\(\)]\s*\d+(\.\d+)?/);
+    const mathExpr = mathQuery.match(/[\d\.\+\-\*\/\(\)\s]+/g);
     if (mathExpr) {
       try {
-        const result = eval(mathExpr[0]);
+        const result = eval(mathExpr.join(''));
         return result.toString();
       } catch (e) {
         // If eval fails, return empty
