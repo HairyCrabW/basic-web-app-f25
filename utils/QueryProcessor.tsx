@@ -84,11 +84,17 @@ export default function QueryProcessor(query: string): string {
       'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1,
       'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
     };
-    const wordMatch = query.match(/(?:of|scrabble)\s+([a-z]+)/i);
-    if (wordMatch) {
-      const word = wordMatch[1].toLowerCase();
-      const score = word.split('').reduce((sum, letter) => sum + (scrabbleScores[letter] || 0), 0);
-      return score.toString();
+    const words = query.match(/\b[a-z]+\b/gi);
+    if (words) {
+      // Find the last word that's not a common word
+      for (let i = words.length - 1; i >= 0; i--) {
+        const word = words[i].toLowerCase();
+        if (word !== 'scrabble' && word !== 'score' && word !== 'of' && word !== 'the' &&
+            word !== 'what' && word !== 'is') {
+          const score = word.split('').reduce((sum, letter) => sum + (scrabbleScores[letter] || 0), 0);
+          return score.toString();
+        }
+      }
     }
   }
 
