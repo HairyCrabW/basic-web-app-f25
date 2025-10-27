@@ -77,6 +77,16 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  // Power operation
+  if (query.toLowerCase().includes("power")) {
+    const powerMatch = query.match(/(\d+)\s*(?:to the power of|power)\s*(\d+)/i);
+    if (powerMatch) {
+      const base = parseInt(powerMatch[1]);
+      const exponent = parseInt(powerMatch[2]);
+      return Math.pow(base, exponent).toString();
+    }
+  }
+
   // Math operations - use eval for complex expressions
   if (query.includes("+") || query.includes("-") || query.includes("*") || query.includes("/") ||
       query.toLowerCase().includes("plus") || query.toLowerCase().includes("minus") ||
