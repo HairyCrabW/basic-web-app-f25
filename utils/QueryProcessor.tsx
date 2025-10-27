@@ -43,6 +43,20 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  // Find number that is both square and cube
+  if (query.toLowerCase().includes("square") && query.toLowerCase().includes("cube")) {
+    const numbers = query.match(/\d+/g);
+    if (numbers) {
+      for (const numStr of numbers) {
+        const num = parseInt(numStr);
+        const sixthRoot = Math.round(Math.pow(num, 1/6));
+        if (Math.pow(sixthRoot, 6) === num) {
+          return num.toString();
+        }
+      }
+    }
+  }
+
   // Math operations - use eval for complex expressions
   if (query.includes("+") || query.includes("-") || query.includes("*") || query.includes("/") ||
       query.toLowerCase().includes("plus") || query.toLowerCase().includes("minus") ||
